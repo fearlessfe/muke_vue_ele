@@ -41,5 +41,16 @@ module.exports = {
         })
       })
     }
-  }
+  },
+  chainWebpack(config) {
+    config.resolve.alias
+      .set('components', resolve('src/components'))
+      .set('common', resolve('src/common'))
+      .set('api', resolve('src/api'))
+
+    config.plugin('context')
+      .use(webpack.ContextReplacementPlugin,
+        [/moment[/\\]locale$/, /zh-cn/])
+  },
+  baseUrl: ''
 }
