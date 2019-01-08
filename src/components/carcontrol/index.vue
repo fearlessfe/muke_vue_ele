@@ -13,6 +13,7 @@
 <script>
 import Vue from 'vue'
 export default {
+  name: 'cart-control',
   props: {
     food: {
       type: Object
