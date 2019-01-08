@@ -1,7 +1,13 @@
+const webpack = require('webpack')
+const path = require('path')
 const appData = require('./data.json')
 const seller = appData.seller
 const goods = appData.goods
 const ratings = appData.ratings
+
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
 
 module.exports = {
   css: {

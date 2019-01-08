@@ -1,7 +1,7 @@
 <template>
   <div class="cartcontrol">
     <transition name="move">
-      <div class="cart-decrease" @click="decreaseCart" v-show="food.count>0">
+      <div class="cart-decrease" @click="decrease" v-show="food.count>0">
         <span class="inner icon-remove_circle_outline"></span>
       </div>
     </transition>
@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
+const EVENT_ADD = 'add'
 export default {
   name: 'cart-control',
   props: {
@@ -29,12 +29,9 @@ export default {
       } else {
         this.food.count++
       }
-      this.$emit('cart-add', event.target)
+      this.$emit(EVENT_ADD, event.target)
     },
-    decreaseCart (event) {
-      if (!event._constructed) {
-        return false
-      }
+    decrease (event) {
       if (this.food.count) {
         this.food.count--
       }
@@ -44,19 +41,20 @@ export default {
 </script>
 <style lang="stylus" scoped>
   .cartcontrol
-    font-size 0
+    display flex
+    align-items center
     .cart-decrease
       display inline-block
       padding 6px
+      opacity 1
       &.move-enter-active, &.move-leave-active
         transition all 0.4s linear
-        opacity 1
         transform translate3d(0,0,0)
       .inner
         display inline-block
         line-height 24px
-        font-size 24px
-        color rgb(0,160,220)
+        font-size $fontsize-large-xxx
+        color $color-blue
         transition all 0.4s linear
         transform rotate(0)
       &.move-enter, &.move-leave-to
@@ -65,18 +63,15 @@ export default {
         .inner
           transform rotate(180deg)
     .cart-count
-      display inline-block
-      vertical-align top
       width 12px
-      padding-top 6px
       line-height 24px
       text-align center
-      font-size 10px
-      color rgb(147,153,159)
+      font-size $fontsize-small-s
+      color $color-grey
     .cart-add
       display inline-block
       padding 6px
       line-height 24px
-      font-size 24px
-      color rgb(0,160,220)
+      font-size $fontsize-large-xxx
+      color $color-blue
 </style>
